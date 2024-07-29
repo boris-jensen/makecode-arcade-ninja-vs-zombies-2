@@ -1,0 +1,31 @@
+{
+    "image1": {
+        "data": "hwQQABAAAAAAAADw/w8AAAAAAK9K9AAAAADwqkr0AAAAAK+q+g8A8PD/r6rK+v+vr6qqqsqqqqpKSKSZyqyqqkpEopnKqv//SkikmcqsqqqvqqqqyqqqqvD/r6rK+v+vAACvqvoPAPAAAPCqSvQAAAAAAK9K9AAAAAAA8P8PAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "NinjaStanding"
+    },
+    "image2": {
+        "data": "hwQIAAgAAAAAAA0AAAAFAABQVADQRULVAFBUAAAABQAAAA0AAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Shuriken"
+    },
+    "anim1": {
+        "namespace": "myAnimations",
+        "id": "anim1",
+        "mimeType": "application/mkcd-animation",
+        "data": "YzgwMDEwMDAxMDAwMDIwMDAwMDAwMGFmYWEwZjAwMDAwMDAwZjA0NGE0ZmEwMDAwZjAwZmYwODRhNGZhMDAwMDRmZjRmMDQ0YTRmYTAwMDA0ZmE0ZmY0MmFhZmEwZjAwZjBhYWFhYWFhYWFhZmEwMDAwYWZhYTk5YWFhYWZhMDAwMGFmYWE5OWFhYWZmYTAwMDBmMGFhYWFmYTQ0MGYwMDAwMDBjZmNjZmM0NDBmMDAwMDAwY2ZhYWFjZmYwMDAwMDAwMGFmYWFhYWZhMDAwMDAwMDBhZmZhYWFhYTBmMDAwMGYwYWFmYWFmYWFmYTAwMDBhZmFhMGZmMGFhZmEwMDAwYWZhYTBmZjBhYTBmMDAwMDAwMDBhZmFhMGYwMDAwMDAwMGYwNDRhNGZhMDAwMDAwMDBmMDg0YTRmYTAwMDAwMDAwZjA0NGE0ZmEwMDAwMDAwMGYwNDJhYWZhMDAwMDAwMDBhZmFhYWFhYTBmMDAwMGYwYWE5OWFhYWFmYTAwMDBhZmFhZjlmZmFhZmEwMGYwNDRhYTRhYTRhYTBmMDBmMDQ0Y2Y0Y2E0YWEwZjAwMDBmZmNmZmFmZmZmMDAwMDAwMDBhZmFhYWFmYTAwMDAwMDAwYWZmYWFhZmEwMDAwMDAwMGYwZmFhYTBmMDAwMDAwMDAwMGFmYWEwZjAwMDAwMDAwMDBhZmFhMGYwMDAw",
+        "displayName": "NinjaLeft"
+    },
+    "anim2": {
+        "namespace": "myAnimations",
+        "id": "anim2",
+        "mimeType": "application/mkcd-animation",
+        "data": "YzgwMDEwMDAxMDAwMDIwMDAwMDBmMGFhZmEwMDAwMDAwMDAwYWY0YTQ0MGYwMDAwMDAwMGFmNGE0ODBmZjAwZjAwMDBhZjRhNDQwZjRmZjQwMGYwYWZhYTI0ZmY0YWY0MDBhZmFhYWFhYWFhYWEwZjAwYWZhYWFhOTlhYWZhMDAwMGFmZmFhYTk5YWFmYTAwMDBmMDQ0YWZhYWFhMGYwMDAwZjA0NGNmY2NmYzAwMDAwMDAwZmZjYWFhZmMwMDAwMDAwMGFmYWFhYWZhMDAwMDAwZjBhYWFhYWZmYTAwMDAwMGFmYWFmYWFmYWEwZjAwMDBhZmFhMGZmMGFhZmEwMDAwZjBhYTBmZjBhYWZhMDAwMDAwZjBhYWZhMDAwMDAwMDAwMGFmNGE0NDBmMDAwMDAwMDBhZjRhNDgwZjAwMDAwMDAwYWY0YTQ0MGYwMDAwMDAwMGFmYWEyNDBmMDAwMDAwZjBhYWFhYWFmYTAwMDAwMGFmYWFhYTk5YWEwZjAwMDBhZmFhZmY5ZmFhZmEwMDAwZjBhYTRhYTRhYTQ0MGYwMGYwYWE0YWM0ZmM0NDBmMDAwMGZmZmZhZmZjZmYwMDAwMDBhZmFhYWFmYTAwMDAwMDAwYWZhYWFmZmEwMDAwMDAwMGYwYWFhZjBmMDAwMDAwMDBmMGFhZmEwMDAwMDAwMDAwZjBhYWZhMDAwMDAw",
+        "displayName": "NinjaRight"
+    },
+    "*": {
+        "mimeType": "image/x-mkcd-f4",
+        "dataEncoding": "base64",
+        "namespace": "myImages"
+    }
+}
