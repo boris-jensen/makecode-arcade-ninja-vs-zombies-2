@@ -33,6 +33,25 @@ d 5 4 2 4 5 d .
 . . . 5 . . . . 
 . . . d . . . . 
 `;
+            case "image3":
+            case "Boulder":return img`
+. . . . . . 4 e 4 e . . . . . . 
+. . . . 4 e e 5 e 4 e e . . . . 
+. . . e e 5 e 4 4 4 4 e 4 4 . . 
+. . e e 4 e e 4 5 e 4 e e e e . 
+. e 4 4 5 4 e e e 4 4 5 4 5 e 4 
+. 4 e 4 5 4 4 4 e 4 4 5 5 4 e e 
+e 4 e 5 5 5 4 e e e e 5 5 4 e 4 
+4 e 4 5 4 5 5 4 4 4 4 4 5 4 4 e 
+e e 5 5 5 4 4 e 4 4 e e 5 e e 4 
+5 4 5 5 e 5 5 e e e e 4 e e 4 4 
+e 4 e e e e 4 5 4 4 e e e 4 e e 
+. 5 e 4 4 5 5 5 5 5 5 5 4 4 e . 
+. 4 4 e 5 5 e 5 4 5 4 5 4 4 4 . 
+. e e e e 4 5 5 5 5 5 4 e e . . 
+. . . 4 4 e 4 4 4 5 4 e e . . . 
+. . . . . . 4 5 4 e 4 . . . . . 
+`;
         }
         return null;
     })

@@ -9,6 +9,11 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "Shuriken"
     },
+    "image3": {
+        "data": "hwQQABAAAAAAAABOXg4AAAAATuROVOQAAODkTlXu5AAA7kRVVU7uBEBOVUXlTuUE4OVEVVReRQ7k7k5UVFReRF5ETk7uVVVU5FTuTuRUVERO5ERO5FRV5eBERE7uXlRE4O5VRU5eRQ4A5FRV5U7kDgDkRUTuROQAAODuTk7uBAAAAOTkRA4AAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Boulder"
+    },
     "anim1": {
         "namespace": "myAnimations",
         "id": "anim1",
