@@ -7,6 +7,7 @@ namespace SpriteKind {
 }
 function spawnBoulder (col: number, row: number) {
     mySprite = sprites.create(assets.image`Boulder`, SpriteKind.Enemy)
+    sprites.setDataBoolean(mySprite, "canBeDestroyed", false)
     tiles.placeOnTile(mySprite, tiles.getTileLocation(col, row))
     mySprite.setVelocity(0, 50)
 }
@@ -172,6 +173,13 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Chest, function (sprite, otherSp
         game.gameOver(true)
     }
 })
+function spawnJumpingBoulder (col: number, row: number) {
+    mySprite = sprites.create(assets.image`Boulder`, SpriteKind.Enemy)
+    sprites.setDataBoolean(mySprite, "canBeDestroyed", false)
+    tiles.placeOnTile(mySprite, tiles.getTileLocation(col, row))
+    mySprite.setVelocity(0, -300)
+    mySprite.ay = gravity
+}
 controller.right.onEvent(ControllerButtonEvent.Released, function () {
     handlePlayerDirection()
 })
@@ -179,9 +187,11 @@ controller.left.onEvent(ControllerButtonEvent.Released, function () {
     handlePlayerDirection()
 })
 sprites.onOverlap(SpriteKind.Shuriken, SpriteKind.Enemy, function (sprite, otherSprite) {
-    sprites.destroy(otherSprite, effects.fire, 500)
     sprites.destroy(sprite)
-    music.play(music.melodyPlayable(music.zapped), music.PlaybackMode.InBackground)
+    if (sprites.readDataBoolean(otherSprite, "canBeDestroyed")) {
+        sprites.destroy(otherSprite, effects.fire, 500)
+        music.play(music.melodyPlayable(music.zapped), music.PlaybackMode.InBackground)
+    }
 })
 function getEnemySpeed (goLeft: boolean, isFast: boolean) {
     if (goLeft) {
@@ -428,9 +438,13 @@ function spawnInitialItems () {
         b b b b b b b b b b b b b b b b 
         . b b . . . . . . . . . . b b . 
         `, SpriteKind.Chest)
-    tiles.placeOnTile(chestSprite, tiles.getTileLocation(51, 4))
+    tiles.placeOnTile(chestSprite, tiles.getTileLocation(98, 10))
     spawnFood(39, 3)
-    spawnCoin(4, 0)
+    spawnFood(54, 12)
+    spawnFood(78, 10)
+    spawnFood(81, 10)
+    spawnFood(56, 1)
+    spawnCoin(5, 0)
     spawnCoin(11, 1)
     spawnCoin(47, 2)
     spawnCoin(26, 3)
@@ -438,6 +452,19 @@ function spawnInitialItems () {
     spawnCoin(2, 8)
     spawnCoin(1, 9)
     spawnCoin(2, 9)
+    spawnCoin(84, 9)
+    spawnCoin(85, 9)
+    spawnCoin(84, 10)
+    spawnCoin(85, 10)
+    spawnCoin(93, 1)
+    spawnCoin(94, 0)
+    spawnCoin(95, 1)
+    spawnCoin(95, 2)
+    spawnCoin(95, 3)
+    spawnCoin(54, 0)
+    spawnCoin(55, 0)
+    spawnCoin(54, 1)
+    spawnCoin(55, 1)
 }
 function spawnEnemy (col: number, row: number, goLeft: boolean, isFast: boolean) {
     mySprite = sprites.create(img`
@@ -466,6 +493,7 @@ function spawnEnemy (col: number, row: number, goLeft: boolean, isFast: boolean)
         ........................
         ........................
         `, SpriteKind.Enemy)
+    sprites.setDataBoolean(mySprite, "canBeDestroyed", true)
     tiles.placeOnTile(mySprite, tiles.getTileLocation(col, row))
     mySprite.ay = gravity
     mySprite.setBounceOnWall(true)
@@ -743,8 +771,13 @@ game.onUpdate(function () {
 game.onUpdateInterval(2000, function () {
     spawnBoulder(35, 5)
     spawnBoulder(40, 5)
-})
-game.onUpdateInterval(1000, function () {
     spawnEnemy(38, 0, true, false)
-    spawnEnemy(39, 0, false, false)
+    spawnEnemy(39, 0, false, true)
+    spawnEnemy(72, 0, true, true)
+    spawnJumpingBoulder(73, 12)
+    spawnJumpingBoulder(79, 12)
+    spawnJumpingBoulder(6, 7)
+    spawnJumpingBoulder(30, 5)
+    spawnJumpingBoulder(47, 5)
+    spawnJumpingBoulder(51, 11)
 })
