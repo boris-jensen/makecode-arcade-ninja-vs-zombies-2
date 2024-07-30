@@ -14,6 +14,16 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "Boulder"
     },
+    "image4": {
+        "data": "hwQQABAAAAAAAAAAAAAAAACwu7u7CwAAALARERELAAAAsPHxEQsAAACw8fERCwAAALDx8RELAAAAsPHxEbu7uwCw8RERGxERALDx8REbEREAsPHxEbu7uwCw8RERCwAAALARERELAAAAsBEREQsAAACwERERCwAAALC7u7sLAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "SignNoHighlight"
+    },
+    "image5": {
+        "data": "hwQQABAAAAAAAAAAAAAAAABAREREBAAAAEAREREEAAAAQPHxEQQAAABA8fERBAAAAEDx8REEAAAAQPHxEURERABA8RERFBERAEDx8REUEREAQPHxEURERABA8RERBAAAAEAREREEAAAAQBEREQQAAABAERERBAAAAEBEREQEAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "SignWithHighlight"
+    },
     "anim1": {
         "namespace": "myAnimations",
         "id": "anim1",

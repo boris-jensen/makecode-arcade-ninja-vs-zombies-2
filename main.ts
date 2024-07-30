@@ -4,6 +4,7 @@ namespace SpriteKind {
     export const Key = SpriteKind.create()
     export const Chest = SpriteKind.create()
     export const Boulder = SpriteKind.create()
+    export const Sign = SpriteKind.create()
 }
 function spawnBoulder (col: number, row: number) {
     mySprite = sprites.create(assets.image`Boulder`, SpriteKind.Enemy)
@@ -114,19 +115,38 @@ function spawnCoin (col: number, row: number) {
     true
     )
 }
+function spawnInitialFood () {
+    spawnFood(39, 3)
+    spawnFood(54, 12)
+    spawnFood(78, 10)
+    spawnFood(81, 10)
+    spawnFood(56, 1)
+}
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Coin, function (sprite, otherSprite) {
     sprites.destroy(otherSprite, effects.rings, 500)
     info.changeScoreBy(1)
     music.play(music.melodyPlayable(music.magicWand), music.PlaybackMode.InBackground)
 })
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
-    projectileSpeed = 300
-    if (!(sprites.readDataBoolean(playerSprite, "directionRight"))) {
-        projectileSpeed = -1 * projectileSpeed
+    shouldShowSignMessage = false
+    signMessage = ""
+    for (let value of sprites.allOfKind(SpriteKind.Sign)) {
+        if (sprites.readDataBoolean(value, "isTouchedSign")) {
+            shouldShowSignMessage = true
+            signMessage = sprites.readDataString(value, "message")
+        }
     }
-    projectile = sprites.createProjectileFromSprite(assets.image`Shuriken`, playerSprite, projectileSpeed, 0)
-    projectile.setKind(SpriteKind.Shuriken)
-    music.play(music.melodyPlayable(music.pewPew), music.PlaybackMode.UntilDone)
+    if (shouldShowSignMessage) {
+        game.showLongText(signMessage, DialogLayout.Center)
+    } else {
+        projectileSpeed = 300
+        if (!(sprites.readDataBoolean(playerSprite, "directionRight"))) {
+            projectileSpeed = -1 * projectileSpeed
+        }
+        projectile = sprites.createProjectileFromSprite(assets.image`Shuriken`, playerSprite, projectileSpeed, 0)
+        projectile.setKind(SpriteKind.Shuriken)
+        music.play(music.melodyPlayable(music.pewPew), music.PlaybackMode.UntilDone)
+    }
 })
 function initializePlayer () {
     playerSprite = sprites.create(assets.image`NinjaStanding`, SpriteKind.Player)
@@ -141,26 +161,48 @@ function initializePlayer () {
     info.setScore(0)
     info.setLife(3)
 }
+function clearTouchesSign () {
+    if (sprites.readDataBoolean(playerSprite, "touchesSign")) {
+        signsTouched = 0
+        for (let value of sprites.allOfKind(SpriteKind.Sign)) {
+            if (playerSprite.overlapsWith(value)) {
+                signsTouched += 1
+            } else {
+                value.setImage(assets.image`SignNoHighlight`)
+                sprites.setDataBoolean(value, "isTouchedSign", false)
+            }
+        }
+        if (signsTouched == 0) {
+            sprites.setDataBoolean(playerSprite, "touchesSign", false)
+        }
+    }
+}
 function spawnFood (col: number, row: number) {
     mySprite = sprites.create(img`
-        . . . . . . . e c 7 . . . . . . 
-        . . . . e e e c 7 7 e e . . . . 
-        . . c e e e e c 7 e 2 2 e e . . 
-        . c e e e e e c 6 e e 2 2 2 e . 
-        . c e e e 2 e c c 2 4 5 4 2 e . 
-        c e e e 2 2 2 2 2 2 4 5 5 2 2 e 
-        c e e 2 2 2 2 2 2 2 2 4 4 2 2 e 
-        c e e 2 2 2 2 2 2 2 2 2 2 2 2 e 
-        c e e 2 2 2 2 2 2 2 2 2 2 2 2 e 
-        c e e 2 2 2 2 2 2 2 2 2 2 2 2 e 
-        c e e 2 2 2 2 2 2 2 2 2 2 4 2 e 
-        . e e e 2 2 2 2 2 2 2 2 2 4 e . 
-        . 2 e e 2 2 2 2 2 2 2 2 4 2 e . 
-        . . 2 e e 2 2 2 2 2 4 4 2 e . . 
-        . . . 2 2 e e 4 4 4 2 e e . . . 
-        . . . . . 2 2 e e e e . . . . . 
+        . . . . . . b b b b . . . . . . 
+        . . . . . . b 4 4 4 b . . . . . 
+        . . . . . . b b 4 4 4 b . . . . 
+        . . . . . b 4 b b b 4 4 b . . . 
+        . . . . b d 5 5 5 4 b 4 4 b . . 
+        . . . . b 3 2 3 5 5 4 e 4 4 b . 
+        . . . b d 2 2 2 5 7 5 4 e 4 4 e 
+        . . . b 5 3 2 3 5 5 5 5 e e e e 
+        . . b d 7 5 5 5 3 2 3 5 5 e e e 
+        . . b 5 5 5 5 5 2 2 2 5 5 d e e 
+        . b 3 2 3 5 7 5 3 2 3 5 d d e 4 
+        . b 2 2 2 5 5 5 5 5 5 d d e 4 . 
+        b d 3 2 d 5 5 5 d d d 4 4 . . . 
+        b 5 5 5 5 d d 4 4 4 4 . . . . . 
+        4 d d d 4 4 4 . . . . . . . . . 
+        4 4 4 4 . . . . . . . . . . . . 
         `, SpriteKind.Food)
     tiles.placeOnTile(mySprite, tiles.getTileLocation(col, row))
+}
+function spawnSign (col: number, row: number, message: string) {
+    mySprite = sprites.create(assets.image`SignNoHighlight`, SpriteKind.Sign)
+    tiles.placeOnTile(mySprite, tiles.getTileLocation(col, row))
+    sprites.setDataString(mySprite, "message", message)
+    sprites.setDataBoolean(mySprite, "isTouchedSign", false)
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     Jump()
@@ -193,6 +235,34 @@ sprites.onOverlap(SpriteKind.Shuriken, SpriteKind.Enemy, function (sprite, other
         music.play(music.melodyPlayable(music.zapped), music.PlaybackMode.InBackground)
     }
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Sign, function (sprite, otherSprite) {
+    sprites.setDataBoolean(playerSprite, "touchesSign", true)
+    otherSprite.setImage(assets.image`SignWithHighlight`)
+    sprites.setDataBoolean(otherSprite, "isTouchedSign", true)
+})
+function spawnInitialCoins () {
+    spawnCoin(5, 0)
+    spawnCoin(11, 1)
+    spawnCoin(47, 2)
+    spawnCoin(26, 3)
+    spawnCoin(1, 8)
+    spawnCoin(2, 8)
+    spawnCoin(1, 9)
+    spawnCoin(2, 9)
+    spawnCoin(84, 9)
+    spawnCoin(85, 9)
+    spawnCoin(84, 10)
+    spawnCoin(85, 10)
+    spawnCoin(93, 1)
+    spawnCoin(94, 0)
+    spawnCoin(95, 1)
+    spawnCoin(95, 2)
+    spawnCoin(95, 3)
+    spawnCoin(54, 0)
+    spawnCoin(55, 0)
+    spawnCoin(54, 1)
+    spawnCoin(55, 1)
+}
 function getEnemySpeed (goLeft: boolean, isFast: boolean) {
     if (goLeft) {
         if (isFast) {
@@ -439,32 +509,9 @@ function spawnInitialItems () {
         . b b . . . . . . . . . . b b . 
         `, SpriteKind.Chest)
     tiles.placeOnTile(chestSprite, tiles.getTileLocation(98, 10))
-    spawnFood(39, 3)
-    spawnFood(54, 12)
-    spawnFood(78, 10)
-    spawnFood(81, 10)
-    spawnFood(56, 1)
-    spawnCoin(5, 0)
-    spawnCoin(11, 1)
-    spawnCoin(47, 2)
-    spawnCoin(26, 3)
-    spawnCoin(1, 8)
-    spawnCoin(2, 8)
-    spawnCoin(1, 9)
-    spawnCoin(2, 9)
-    spawnCoin(84, 9)
-    spawnCoin(85, 9)
-    spawnCoin(84, 10)
-    spawnCoin(85, 10)
-    spawnCoin(93, 1)
-    spawnCoin(94, 0)
-    spawnCoin(95, 1)
-    spawnCoin(95, 2)
-    spawnCoin(95, 3)
-    spawnCoin(54, 0)
-    spawnCoin(55, 0)
-    spawnCoin(54, 1)
-    spawnCoin(55, 1)
+    spawnInitialCoins()
+    spawnInitialFood()
+    spawnSign(18, 4, "Down to the key...")
 }
 function spawnEnemy (col: number, row: number, goLeft: boolean, isFast: boolean) {
     mySprite = sprites.create(img`
@@ -631,9 +678,12 @@ let chestSprite: Sprite = null
 let keySprite: Sprite = null
 let dangerTileLocation: tiles.Location = null
 let maxJumps = 0
+let signsTouched = 0
 let gravity = 0
 let projectile: Sprite = null
 let projectileSpeed = 0
+let signMessage = ""
+let shouldShowSignMessage = false
 let enemiesTouched = 0
 let playerSprite: Sprite = null
 let numberOfJumps = 0
@@ -767,6 +817,7 @@ spawnInitialEnemies()
 spawnInitialItems()
 game.onUpdate(function () {
     clearTouchesEnemies()
+    clearTouchesSign()
 })
 game.onUpdateInterval(2000, function () {
     spawnBoulder(35, 5)
