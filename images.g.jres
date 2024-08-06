@@ -1,9 +1,4 @@
 {
-    "image1": {
-        "data": "hwQQABAAAAAAAADw/w8AAAAAAK9K9AAAAADwqkr0AAAAAK+q+g8A8PD/r6rK+v+vr6qqqsqqqqpKSKSZyqyqqkpEopnKqv//SkikmcqsqqqvqqqqyqqqqvD/r6rK+v+vAACvqvoPAPAAAPCqSvQAAAAAAK9K9AAAAAAA8P8PAAAAAAAAAAAAAA==",
-        "mimeType": "image/x-mkcd-f4",
-        "displayName": "NinjaStanding"
-    },
     "image2": {
         "data": "hwQIAAgAAAAAAA0AAAAFAABQVADQRULVAFBUAAAABQAAAA0AAAAAAA==",
         "mimeType": "image/x-mkcd-f4",
@@ -19,8 +14,13 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "SignNoHighlight"
     },
+    "image1": {
+        "data": "hwQQABAAAAAAAAAAAAAAAAAAAP//DwAAAADwIkL0AAAAAC8iQvQA8PD/LyL///8vLyIiIsIiIiJCSCRVwiwiIkJELlXCIv//QkgkVcIsIiIvIiIiwiIiIvD/LyL///8vAAAvIkL0APAAAPAiQvQAAAAAAP//DwAAAAAAAAAAAAAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "NinjaStanding"
+    },
     "image5": {
-        "data": "hwQQABAAAAAAAAAAAAAAAABAREREBAAAAEAREREEAAAAQPHxEQQAAABA8fERBAAAAEDx8REEAAAAQPHxEURERABA8RERFBERAEDx8REUEREAQPHxEURERABA8RERBAAAAEAREREEAAAAQBEREQQAAABAERERBAAAAEBEREQEAAAAAAAAAAAAAA==",
+        "data": "hwQQABAAAAAAAAAAAAAAAAAgJSUlBQAAAFARERECAAAAIPHxEQUAAABQ8fERAgAAACDx8REFAAAAUPHxEVJSUgAg8RERFRERAFDx8RESEREAIPHxESUlJQBQ8RERAgAAACAREREFAAAAUBEREQIAAAAgERERBQAAAFBSUlICAAAAAAAAAAAAAA==",
         "mimeType": "image/x-mkcd-f4",
         "displayName": "SignWithHighlight"
     },

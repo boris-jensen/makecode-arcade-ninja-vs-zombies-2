@@ -3,25 +3,6 @@ namespace myImages {
 
     helpers._registerFactory("image", function(name: string) {
         switch(helpers.stringTrim(name)) {
-            case "image1":
-            case "NinjaStanding":return img`
-. . . . . f a a a f . . . . . . 
-. . . . f a 4 4 4 a f . . . . . 
-. . . . f a 8 4 8 a f . . . . . 
-. . . . f a 4 4 4 a f . . . . . 
-. . . f f a 4 2 4 a f f . . . . 
-. . f a a a a a a a a a f . . . 
-. f a a a a 9 9 9 a a a a f . . 
-f a a a a a 9 9 9 a a a a a f . 
-f a a a a a a a a a a a a a f . 
-f 4 4 f c c c c c c c f 4 4 f . 
-f 4 4 f a a c a c a a f 4 4 f . 
-. f f . f a a a a a f . f f . . 
-. . . . f a a f a a f . . . . . 
-. . . . f a a f a a f . . . . . 
-. . . . f a a f a a f . . . . . 
-. . . f a a a f a a a f . . . . 
-`;
             case "image2":
             case "Shuriken":return img`
 . . . . . . . . 
@@ -71,24 +52,43 @@ e 4 e e e e 4 5 4 4 e e e 4 e e
 . . . . . . b 1 1 b . . . . . . 
 . . . . . . b 1 1 b . . . . . . 
 `;
+            case "image1":
+            case "NinjaStanding":return img`
+. . . . . f 2 2 2 f . . . . . . 
+. . . . f 2 4 4 4 2 f . . . . . 
+. . . . f 2 8 4 8 2 f . . . . . 
+. . . . f 2 4 4 4 2 f . . . . . 
+. . . f f 2 4 e 4 2 f f . . . . 
+. . f 2 2 2 2 2 2 2 2 2 f . . . 
+. f 2 2 2 2 5 5 5 2 2 2 2 f . . 
+. f 2 2 2 2 5 5 5 2 2 2 2 f . . 
+. f 2 2 f 2 2 2 2 2 f 2 2 f . . 
+. f 4 4 f c c c c c f 4 4 f . . 
+. f 4 4 f 2 c 2 c 2 f 4 4 f . . 
+. . f f f 2 2 2 2 2 f f f . . . 
+. . . . f 2 2 f 2 2 f . . . . . 
+. . . . f 2 2 f 2 2 f . . . . . 
+. . . . f 2 2 f 2 2 f . . . . . 
+. . . f 2 2 2 f 2 2 2 f . . . . 
+`;
             case "image5":
             case "SignWithHighlight":return img`
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
-. 4 4 4 4 4 4 4 4 4 4 4 4 4 4 . 
-. 4 1 1 1 1 1 1 1 1 1 1 1 1 4 . 
-. 4 1 f f f f f f f f 1 1 1 4 . 
-. 4 1 1 1 1 1 1 1 1 1 1 1 1 4 . 
-. 4 1 f f f f 1 f f 1 1 1 1 4 . 
-. 4 1 1 1 1 1 1 1 1 1 1 1 1 4 . 
-. 4 1 1 1 1 1 1 1 1 1 1 1 1 4 . 
-. 4 4 4 4 4 4 4 4 4 4 4 4 4 4 . 
-. . . . . . 4 1 1 4 . . . . . . 
-. . . . . . 4 1 1 4 . . . . . . 
-. . . . . . 4 1 1 4 . . . . . . 
-. . . . . . 4 1 1 4 . . . . . . 
-. . . . . . 4 1 1 4 . . . . . . 
+. 2 5 2 5 2 5 2 5 2 5 2 5 2 5 . 
+. 5 1 1 1 1 1 1 1 1 1 1 1 1 2 . 
+. 2 1 f f f f f f f f 1 1 1 5 . 
+. 5 1 1 1 1 1 1 1 1 1 1 1 1 2 . 
+. 2 1 f f f f 1 f f 1 1 1 1 5 . 
+. 5 1 1 1 1 1 1 1 1 1 1 1 1 2 . 
+. 2 1 1 1 1 1 1 1 1 1 1 1 1 5 . 
+. 5 2 5 2 5 2 5 2 5 2 5 2 5 2 . 
+. . . . . . 5 1 1 2 . . . . . . 
+. . . . . . 2 1 1 5 . . . . . . 
+. . . . . . 5 1 1 2 . . . . . . 
+. . . . . . 2 1 1 5 . . . . . . 
+. . . . . . 5 1 1 2 . . . . . . 
 `;
         }
         return null;
