@@ -118,7 +118,6 @@ function spawnCoin (col: number, row: number) {
 function spawnInitialFood () {
     spawnFood(39, 3)
     spawnFood(54, 12)
-    spawnFood(78, 10)
     spawnFood(81, 10)
     spawnFood(56, 1)
 }
@@ -511,7 +510,7 @@ function spawnInitialItems () {
     tiles.placeOnTile(chestSprite, tiles.getTileLocation(98, 10))
     spawnInitialCoins()
     spawnInitialFood()
-    spawnSign(18, 4, "Down to the key...")
+    spawnSign(18, 4, "There is a key down there somewhere, maybe it would be useful ...")
 }
 function spawnEnemy (col: number, row: number, goLeft: boolean, isFast: boolean) {
     mySprite = sprites.create(img`
