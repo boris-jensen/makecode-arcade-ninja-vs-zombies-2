@@ -149,7 +149,7 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 function initializePlayer () {
-    playerSprite = sprites.create(assets.image`NinjaStanding`, SpriteKind.Player)
+    playerSprite = sprites.create(assets.image`RedNinjaStanding`, SpriteKind.Player)
     numberOfJumps = 0
     controller.moveSprite(playerSprite, 100, 0)
     sprites.setDataBoolean(playerSprite, "directionRight", true)
@@ -427,19 +427,19 @@ function handlePlayerDirection () {
         sprites.setDataBoolean(playerSprite, "directionRight", false)
         animation.runImageAnimation(
         playerSprite,
-        assets.animation`NinjaLeft`,
+        assets.animation`RedNinjaLeft`,
         200,
         true
         )
     } else {
         if (controller.dx() == 0) {
             animation.stopAnimation(animation.AnimationTypes.All, playerSprite)
-            playerSprite.setImage(assets.image`NinjaStanding`)
+            playerSprite.setImage(assets.image`RedNinjaStanding`)
         } else {
             sprites.setDataBoolean(playerSprite, "directionRight", true)
             animation.runImageAnimation(
             playerSprite,
-            assets.animation`NinjaRight`,
+            assets.animation`RedNinjaRight`,
             200,
             true
             )
