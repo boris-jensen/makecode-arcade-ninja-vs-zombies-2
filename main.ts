@@ -147,6 +147,11 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         music.play(music.melodyPlayable(music.pewPew), music.PlaybackMode.UntilDone)
     }
 })
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile`, function (sprite, location) {
+    if (sprites.readDataBoolean(playerSprite, "hasKey")) {
+        game.gameOver(true)
+    }
+})
 function initializePlayer () {
     playerSprite = sprites.create(assets.image`RedNinjaStanding`, SpriteKind.Player)
     numberOfJumps = 0
@@ -210,9 +215,7 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     handlePlayerDirection()
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Chest, function (sprite, otherSprite) {
-    if (sprites.readDataBoolean(playerSprite, "hasKey")) {
-        game.gameOver(true)
-    }
+	
 })
 function spawnJumpingBoulder (col: number, row: number) {
     mySprite = sprites.create(assets.image`Boulder`, SpriteKind.Enemy)
@@ -489,25 +492,6 @@ function spawnInitialItems () {
         . . . . . . . . . . 5 . . . . . 
         `, SpriteKind.Key)
     tiles.placeOnTile(keySprite, tiles.getTileLocation(26, 9))
-    chestSprite = sprites.create(img`
-        . . b b b b b b b b b b b b . . 
-        . b e 4 4 4 4 4 4 4 4 4 4 e b . 
-        b e 4 4 4 4 4 4 4 4 4 4 4 4 e b 
-        b e 4 4 4 4 4 4 4 4 4 4 4 4 e b 
-        b e 4 4 4 4 4 4 4 4 4 4 4 4 e b 
-        b e e 4 4 4 4 4 4 4 4 4 4 e e b 
-        b e e e e e e e e e e e e e e b 
-        b e e e e e e e e e e e e e e b 
-        b b b b b b b d d b b b b b b b 
-        c b b b b b b c c b b b b b b c 
-        c c c c c c b c c b c c c c c c 
-        b e e e e e c b b c e e e e e b 
-        b e e e e e e e e e e e e e e b 
-        b c e e e e e e e e e e e e c b 
-        b b b b b b b b b b b b b b b b 
-        . b b . . . . . . . . . . b b . 
-        `, SpriteKind.Chest)
-    tiles.placeOnTile(chestSprite, tiles.getTileLocation(98, 10))
     spawnInitialCoins()
     spawnInitialFood()
     spawnSign(18, 4, "There is a key down there somewhere, maybe it would be useful ...")
@@ -673,7 +657,6 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
         music.play(music.melodyPlayable(music.smallCrash), music.PlaybackMode.UntilDone)
     }
 })
-let chestSprite: Sprite = null
 let keySprite: Sprite = null
 let dangerTileLocation: tiles.Location = null
 let maxJumps = 0
