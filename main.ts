@@ -5,6 +5,7 @@ namespace SpriteKind {
     export const Chest = SpriteKind.create()
     export const Boulder = SpriteKind.create()
     export const Sign = SpriteKind.create()
+    export const InactivePlayer = SpriteKind.create()
 }
 function spawnBoulder (col: number, row: number) {
     mySprite = sprites.create(assets.image`Boulder`, SpriteKind.Enemy)
@@ -13,12 +14,28 @@ function spawnBoulder (col: number, row: number) {
     mySprite.setVelocity(0, 50)
 }
 scene.onHitWall(SpriteKind.Player, function (sprite, location) {
-    if (sprite.isHittingTile(CollisionDirection.Bottom)) {
-        numberOfJumps = 0
-        if (isDangerGround(location.column, location.row)) {
-            info.changeLifeBy(-1)
-            Jump()
-            music.play(music.melodyPlayable(music.smallCrash), music.PlaybackMode.InBackground)
+    if (tiles.tileAtLocationEquals(tiles.getTileLocation(location.column, location.row), assets.tile`SmallDoor`)) {
+        if (sprites.readDataBoolean(playerSprite, "brotherIsFree")) {
+            game.gameOver(true)
+        } else {
+            game.showLongText("You need to free your brother!", DialogLayout.Center)
+        }
+    } else if (tiles.tileAtLocationEquals(tiles.getTileLocation(location.column, location.row), assets.tile`PrisonBars`)) {
+        if (sprites.readDataBoolean(playerSprite, "hasKey")) {
+            tiles.setTileAt(tiles.getTileLocation(location.column, location.row), sprites.builtin.forestTiles10)
+            tiles.setWallAt(tiles.getTileLocation(location.column, location.row), false)
+            music.play(music.melodyPlayable(music.knock), music.PlaybackMode.UntilDone)
+        } else {
+            game.showLongText("You need a key!", DialogLayout.Center)
+        }
+    } else {
+        if (sprite.isHittingTile(CollisionDirection.Bottom)) {
+            numberOfJumps = 0
+            if (isDangerGround(location.column, location.row)) {
+                info.changeLifeBy(-1)
+                Jump()
+                music.play(music.melodyPlayable(music.smallCrash), music.PlaybackMode.InBackground)
+            }
         }
     }
 })
@@ -129,10 +146,10 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Coin, function (sprite, otherSpr
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     shouldShowSignMessage = false
     signMessage = ""
-    for (let value of sprites.allOfKind(SpriteKind.Sign)) {
-        if (sprites.readDataBoolean(value, "isTouchedSign")) {
+    for (let value2 of sprites.allOfKind(SpriteKind.Sign)) {
+        if (sprites.readDataBoolean(value2, "isTouchedSign")) {
             shouldShowSignMessage = true
-            signMessage = sprites.readDataString(value, "message")
+            signMessage = sprites.readDataString(value2, "message")
         }
     }
     if (shouldShowSignMessage) {
@@ -147,11 +164,6 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         music.play(music.melodyPlayable(music.pewPew), music.PlaybackMode.UntilDone)
     }
 })
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile`, function (sprite, location) {
-    if (sprites.readDataBoolean(playerSprite, "hasKey")) {
-        game.gameOver(true)
-    }
-})
 function initializePlayer () {
     playerSprite = sprites.create(assets.image`RedNinjaStanding`, SpriteKind.Player)
     numberOfJumps = 0
@@ -159,6 +171,7 @@ function initializePlayer () {
     sprites.setDataBoolean(playerSprite, "directionRight", true)
     sprites.setDataBoolean(playerSprite, "touchesEnemy", false)
     sprites.setDataBoolean(playerSprite, "hasKey", false)
+    sprites.setDataBoolean(playerSprite, "brotherIsFree", false)
     playerSprite.ay = gravity
     tiles.placeOnTile(playerSprite, tiles.getTileLocation(1, 4))
     scene.cameraFollowSprite(playerSprite)
@@ -168,12 +181,12 @@ function initializePlayer () {
 function clearTouchesSign () {
     if (sprites.readDataBoolean(playerSprite, "touchesSign")) {
         signsTouched = 0
-        for (let value of sprites.allOfKind(SpriteKind.Sign)) {
-            if (playerSprite.overlapsWith(value)) {
+        for (let value3 of sprites.allOfKind(SpriteKind.Sign)) {
+            if (playerSprite.overlapsWith(value3)) {
                 signsTouched += 1
             } else {
-                value.setImage(assets.image`SignNoHighlight`)
-                sprites.setDataBoolean(value, "isTouchedSign", false)
+                value3.setImage(assets.image`SignNoHighlight`)
+                sprites.setDataBoolean(value3, "isTouchedSign", false)
             }
         }
         if (signsTouched == 0) {
@@ -211,11 +224,15 @@ function spawnSign (col: number, row: number, message: string) {
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     Jump()
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.InactivePlayer, function (sprite, otherSprite) {
+    if (!(sprites.readDataBoolean(playerSprite, "brotherIsFree"))) {
+        sprites.setDataBoolean(playerSprite, "brotherIsFree", true)
+        music.play(music.stringPlayable("E E - E A A A A ", 500), music.PlaybackMode.UntilDone)
+        game.showLongText("Thanks brother, now let's find the wizard.", DialogLayout.Full)
+    }
+})
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     handlePlayerDirection()
-})
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Chest, function (sprite, otherSprite) {
-	
 })
 function spawnJumpingBoulder (col: number, row: number) {
     mySprite = sprites.create(assets.image`Boulder`, SpriteKind.Enemy)
@@ -227,6 +244,12 @@ function spawnJumpingBoulder (col: number, row: number) {
 controller.right.onEvent(ControllerButtonEvent.Released, function () {
     handlePlayerDirection()
 })
+function playNinjaTheme () {
+    music.play(music.stringPlayable("A - A - A - A - ", 1000), music.PlaybackMode.UntilDone)
+    music.play(music.stringPlayable("G G - - G G - - ", 1000), music.PlaybackMode.UntilDone)
+    music.play(music.stringPlayable("E E - - E E - - ", 1000), music.PlaybackMode.UntilDone)
+    music.play(music.stringPlayable("G G G G - - - - ", 1000), music.PlaybackMode.UntilDone)
+}
 controller.left.onEvent(ControllerButtonEvent.Released, function () {
     handlePlayerDirection()
 })
@@ -492,6 +515,8 @@ function spawnInitialItems () {
         . . . . . . . . . . 5 . . . . . 
         `, SpriteKind.Key)
     tiles.placeOnTile(keySprite, tiles.getTileLocation(26, 9))
+    yellowNinjaSprite = sprites.create(assets.image`YellowNinjaStanding`, SpriteKind.InactivePlayer)
+    tiles.placeOnTile(yellowNinjaSprite, tiles.getTileLocation(103, 10))
     spawnInitialCoins()
     spawnInitialFood()
     spawnSign(18, 4, "There is a key down there somewhere, maybe it would be useful ...")
@@ -657,6 +682,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
         music.play(music.melodyPlayable(music.smallCrash), music.PlaybackMode.UntilDone)
     }
 })
+let yellowNinjaSprite: Sprite = null
 let keySprite: Sprite = null
 let dangerTileLocation: tiles.Location = null
 let maxJumps = 0
@@ -667,8 +693,8 @@ let projectileSpeed = 0
 let signMessage = ""
 let shouldShowSignMessage = false
 let enemiesTouched = 0
-let playerSprite: Sprite = null
 let numberOfJumps = 0
+let playerSprite: Sprite = null
 let mySprite: Sprite = null
 scene.setBackgroundImage(img`
     9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999966666699969999999999999999999999999999999999999999999999999999
@@ -797,6 +823,7 @@ setConstants()
 initializePlayer()
 spawnInitialEnemies()
 spawnInitialItems()
+playNinjaTheme()
 game.onUpdate(function () {
     clearTouchesEnemies()
     clearTouchesSign()
