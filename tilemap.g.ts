@@ -39,7 +39,7 @@ namespace myTiles {
             case "tile2":return tile2;
             case "SmallDoor":
             case "tile1":return tile1;
-            case "myTile":
+            case "CastleWindow":
             case "tile3":return tile3;
         }
         return null;
